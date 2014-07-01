@@ -18,7 +18,6 @@ PCA9635::PCA9635(int address)
 
 void PCA9635::begin()
 {
-
   setRegister(MODE1, 0b00000000);
   setRegister(MODE2, 0b00001101);
 
@@ -28,7 +27,7 @@ void PCA9635::begin()
   setRegister(LEDOUT3, 0xFF);
   
 
-  for(int i=0; i<3; i++)
+  for(int i=0; i<16; i++)
   {
     ledvalues[i]=0;
     setLED(i,ledvalues[i]); 
@@ -52,22 +51,6 @@ void PCA9635::setGroup(int pwm)
 {
   setRegister(GRPPWM, pwm);
 
-}
-
-
-
-void PCA9635::setLED0(int pwm)
-{
-  ledvalues[0] = pwm;
-
-  setRegister(PWM0, ledvalues[0]);
-}
-
-void PCA9635::setLED1(int pwm)
-{
-  ledvalues[1] = pwm;
-
-  setRegister(PWM1, ledvalues[1]);
 }
 
 int PCA9635::setRegister(int reg, int value)
