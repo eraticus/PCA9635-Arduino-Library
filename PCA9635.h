@@ -32,6 +32,7 @@ const int PWM1 = 0x03;
 const int LEDOUT0 = 0x14;
 const int LEDOUT1 = 0x15;
 const int LEDOUT2 = 0x16;
+const int LEDOUT3 = 0x17;
 const int GRPPWM = 0x12;
 
 

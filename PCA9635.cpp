@@ -25,6 +25,7 @@ void PCA9635::begin()
   setRegister(LEDOUT0, 0xFF);
   setRegister(LEDOUT1, 0xFF);
   setRegister(LEDOUT2, 0xFF); 
+  setRegister(LEDOUT3, 0xFF);
   
 
   for(int i=0; i<3; i++)
