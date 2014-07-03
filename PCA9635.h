@@ -10,6 +10,8 @@ public:
   void begin();
   void setGroup(int pwm);
   void setLED(int led, int pwm);
+void enable(void);
+void disable(void);
 
 
 private:

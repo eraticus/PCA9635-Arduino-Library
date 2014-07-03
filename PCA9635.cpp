@@ -16,6 +16,30 @@ PCA9635::PCA9635(int address)
 
 }
 
+void PCA9635::enable()
+{
+	setRegister(LEDOUT0, 0xFF);
+  setRegister(LEDOUT1, 0xFF);
+  setRegister(LEDOUT2, 0xFF); 
+  setRegister(LEDOUT3, 0xFF);
+}
+
+void PCA9635::disable()
+{
+	setRegister(LEDOUT0, 0x00);
+  setRegister(LEDOUT1, 0x00);
+  setRegister(LEDOUT2, 0x00); 
+  setRegister(LEDOUT3, 0x00);
+
+
+  for(int i=0; i<16; i++)
+  {
+    ledvalues[i]=0;
+    setLED(i,ledvalues[i]); 
+  }	
+}
+
+
 void PCA9635::begin()
 {
   setRegister(MODE1, 0b00000000);
