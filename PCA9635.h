@@ -1,38 +1,43 @@
-#include <Arduino.h>
-#include <Wire.h>
+#include "PCA9635.h"
 
-class PCA9635
+PCA9635::PCA9635(int address)
 {
-public:
-  PCA9635(int address);
-  int version();
+  _address = address;
+ 
+}
 
-  void begin();
-  void setGroup(int pwm);
-  void setLED(int led, int pwm);
-void enable(void);
-void disable(void);
+void PCA9635::begin()
+{
+  setRegister(MODE1, B00000000);
+  setRegister(MODE2, B00000000);
+
+  setRegister(LEDOUT0, 0xFF);
+  setRegister(LEDOUT1, 0xFF);
+  setRegister(LEDOUT2, 0xFF); 
+  setRegister(LEDOUT3, 0xFF);
+}
+
+void PCA9635::analogWrite(int pin, int value)
+{
+	int reg = 0x2 + pin;
+
+	setRegister(reg, value);
+}
 
 
-private:
-  int setRegister(int reg, int value);
-  int setRegisters(int values[]);
-  int _address;
-  int ledvalues [16];
 
 
-};
+int PCA9635::setRegister(int reg, int value)
+{
+  //WRITE LED0 byte
+  Wire.beginTransmission(_address);
 
-// Register numbers
+  Wire.write(reg);
+  Wire.write(value);
 
-const int MODE1 = 0x00;
-const int MODE2 = 0x01;
-const int PWM0 = 0x02;
-const int PWM1 = 0x03;
-const int LEDOUT0 = 0x14;
-const int LEDOUT1 = 0x15;
-const int LEDOUT2 = 0x16;
-const int LEDOUT3 = 0x17;
-const int GRPPWM = 0x12;
+  int result = Wire.endTransmission();
+
+  return result;
+}
 
 
