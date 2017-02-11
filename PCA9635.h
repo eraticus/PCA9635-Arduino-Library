@@ -12,13 +12,13 @@ class PCA9635
 public:
 	PCA9635(int address);
 	void begin();
-	void analogWrite(int pin, int value);
+	void analogWrite(int pin, byte value);
 	void digitalWrite(int pin, int value);
 	
 	private:
 	  int _address;
 	// interface to I2C
-	void setRegister(int reg, int value);
+	void setRegister(int reg, byte value);
 	int getRegister(int reg);
 };
 
