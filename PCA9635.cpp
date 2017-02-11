@@ -25,16 +25,16 @@ void PCA9635::digitalWrite(int pin, int value)
 	
 	if (value == HIGH)
 	{
-		int x = this.getRegister(LEDOUT0+ledout);
+		int x = getRegister(LEDOUT0+ledout);
 		x &= ~(B11 << 2*(pin%4));
-		x |=  (B01 << 2*(pin%4))
-		setRegister(LEDOUT+ledout, x);
+		x |=  (B01 << 2*(pin%4));
+		setRegister(LEDOUT0+ledout, x);
 	}
 	else if (value == LOW)
 	{
-		int x = this.getRegister(LEDOUT0+ledout);
+		int x = getRegister(LEDOUT0+ledout);
 		x &= ~(B11 << 2*(pin%4));
-		setRegister(LEDOUT+ledout, x);
+		setRegister(LEDOUT0+ledout, x);
 	}
 	else
 	{
@@ -50,15 +50,6 @@ void PCA9635::analogWrite(int pin, int value)
 	setRegister(reg, value);
 }
 
-int PCA9635::getRegister(int reg)
-{
-  //WRITE LED0 byte
-  Wire.beginTransmission(_address);
-  Wire.write(reg);
-
-
-  //return result;
-}
 
 int PCA9635::getRegister(int reg)
 {
@@ -82,7 +73,7 @@ void PCA9635::setRegister(int reg, int value)
   Wire.write(reg);
   Wire.write(value);
 
-  int result = Wire.endTransmission();
+  //int result = Wire.endTransmission();
 
   //return result;
 }
