@@ -1,4 +1,5 @@
-#include "PCA9635.h"
+#include <PCA9635.h>
+#include <Wire.h>
 
 PCA9635::PCA9635(int address)
 {
@@ -27,7 +28,7 @@ void PCA9635::analogWrite(int pin, int value)
 
 
 
-int PCA9635::setRegister(int reg, int value)
+void PCA9635::setRegister(int reg, int value)
 {
   //WRITE LED0 byte
   Wire.beginTransmission(_address);
@@ -37,7 +38,7 @@ int PCA9635::setRegister(int reg, int value)
 
   int result = Wire.endTransmission();
 
-  return result;
+  //return result;
 }
 
 

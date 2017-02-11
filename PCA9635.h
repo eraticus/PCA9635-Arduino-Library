@@ -1,43 +1,22 @@
-#include "PCA9635.h"
+#include <Arduino.h>
 
-PCA9635::PCA9635(int address)
+const int MODE1 = 0x00;
+const int MODE2 = 0x01;
+const int LEDOUT0 = 0x14;
+const int LEDOUT1 = 0x15;
+const int LEDOUT2 = 0x16;
+const int LEDOUT3 = 0x17;
+
+class PCA9635
 {
-  _address = address;
- 
-}
-
-void PCA9635::begin()
-{
-  setRegister(MODE1, B00000000);
-  setRegister(MODE2, B00000000);
-
-  setRegister(LEDOUT0, 0xFF);
-  setRegister(LEDOUT1, 0xFF);
-  setRegister(LEDOUT2, 0xFF); 
-  setRegister(LEDOUT3, 0xFF);
-}
-
-void PCA9635::analogWrite(int pin, int value)
-{
-	int reg = 0x2 + pin;
-
-	setRegister(reg, value);
-}
-
-
-
-
-int PCA9635::setRegister(int reg, int value)
-{
-  //WRITE LED0 byte
-  Wire.beginTransmission(_address);
-
-  Wire.write(reg);
-  Wire.write(value);
-
-  int result = Wire.endTransmission();
-
-  return result;
-}
-
+public:
+	PCA9635(int address);
+	void begin();
+	void analogWrite(int pin, int value);
+	
+	private:
+	  int _address;
+	// interface to I2C
+	void setRegister(int reg, int value);
+};
 
