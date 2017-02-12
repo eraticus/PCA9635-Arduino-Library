@@ -11,7 +11,7 @@ class PCA9635
 {
 public:
 	PCA9635(int address);
-	void begin();
+	int begin();
 	void analogWrite(int pin, byte value);
 	void digitalWrite(int pin, int value);
 	

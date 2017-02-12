@@ -7,8 +7,13 @@ PCA9635::PCA9635(int address)
  
 }
 
-void PCA9635::begin()
+int PCA9635::begin()
 {
+	Wire.beginTransmission(_address);
+  int result = Wire.endTransmission();
+  
+	if (result==0)
+	{
   setRegister(MODE1, B00000000);
   setRegister(MODE2, B00000000);
 
@@ -16,6 +21,8 @@ void PCA9635::begin()
   setRegister(LEDOUT1, 0xFF);
   setRegister(LEDOUT2, 0xFF); 
   setRegister(LEDOUT3, 0xFF);
+}
+return result;
 }
 
 void PCA9635::digitalWrite(int pin, int value)
@@ -73,7 +80,7 @@ void PCA9635::setRegister(int reg, byte value)
   Wire.write(reg);
   Wire.write(value);
 
-  //int result = Wire.endTransmission();
+  int result = Wire.endTransmission();
 
   //return result;
 }
